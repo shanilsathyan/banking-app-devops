@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -11,7 +16,13 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                sh 'mvn clean test surefire-report:report'
+                sh '''
+                    echo "=== Java used by Jenkins ==="
+                    java -version
+                    echo "=== Maven environment ==="
+                    mvn -v
+                    mvn clean test surefire-report:report
+                '''
             }
         }
 
