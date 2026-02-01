@@ -28,7 +28,7 @@ pipeline {
 
         stage('Archive Test Report') {
             steps {
-                archiveArtifacts artifacts: 'target/reports/**', fingerprint: true
+                archiveArtifacts artifacts: 'target/reports/**', fingerprint: true, allowEmptyArchive: true
             }
         }
 
