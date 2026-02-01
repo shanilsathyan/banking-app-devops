@@ -1,0 +1,6 @@
+# Ignore everything in target
+target/*
+
+# But allow the JAR explicitly
+!target/banking-app-0.0.1-SNAPSHOT.jar
+
