@@ -17,11 +17,11 @@ pipeline {
         stage('Build & Test') {
             steps {
                 sh '''
-                    echo "=== Java used by Jenkins ==="
-                    java -version
-                    echo "=== Maven environment ==="
-                    mvn -v
-                    mvn clean test surefire-report:report
+		     echo "=== Java used by Jenkins ==="
+                     java -version
+                     echo "=== Maven environment ==="
+		     mvn -v
+                     mvn clean package
                 '''
             }
         }
