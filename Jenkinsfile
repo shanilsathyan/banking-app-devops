@@ -40,5 +40,25 @@ pipeline {
                 '''
             }
         }
+	stage('Docker Push') {
+	    steps {
+        	withCredentials([usernamePassword(
+            	credentialsId: 'dockerhub-creds',
+            	usernameVariable: 'DOCKER_USER',
+            	passwordVariable: 'DOCKER_PASS'
+       		 )]) {
+           	 sh '''
+                echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+
+                docker tag banking-app:1.0 $DOCKER_USER/banking-app:1.0
+                docker tag banking-app:1.0 $DOCKER_USER/banking-app:latest
+
+                docker push $DOCKER_USER/banking-app:1.0
+                docker push $DOCKER_USER/banking-app:latest
+            '''
+        }
+    }
+}
+
     }
 }
