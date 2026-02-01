@@ -31,5 +31,14 @@ pipeline {
                 archiveArtifacts artifacts: 'target/reports/**', fingerprint: true
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                sh '''
+                    echo "=== Building Docker Image ==="
+                    docker build -t banking-app:1.0 .
+                '''
+            }
+        }
     }
 }
