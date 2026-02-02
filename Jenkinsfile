@@ -4,8 +4,7 @@ pipeline {
     environment {
         JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
-        IMAGE_NAME = "shanil4120/banking-app"
-        IMAGE_TAG = "latest"
+        KUBECONFIG = "/var/snap/jenkins/common/.kube/config"
     }
 
     stages {
@@ -19,42 +18,16 @@ pipeline {
         stage('Build & Test') {
             steps {
                 sh '''
-                    echo "=== Java ==="
-                    java -version
-                    echo "=== Maven ==="
-                    mvn -v
-                    mvn clean package -DskipTests
+                    mvn clean test surefire-report:report
                 '''
             }
         }
 
-        stage('Docker Build') {
-            steps {
-                sh '''
-                    docker build -t $IMAGE_NAME:$IMAGE_TAG .
-                '''
-            }
-        }
-
-        stage('Docker Push') {
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
-                    sh '''
-                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                        docker push $IMAGE_NAME:$IMAGE_TAG
-                    '''
-                }
-            }
-        }
-
-        stage('Kubernetes Deploy') {
+        stage('Deploy to Kubernetes') {
             steps {
                 sh '''
                     kubectl rollout restart deployment banking-app
+                    kubectl rollout status deployment banking-app
                 '''
             }
         }
