@@ -24,31 +24,31 @@ Application
 1.	Code Commit to GitHub
 2.	GitHub Webhook triggers Jenkins automatically
 3.	Jenkins Pipeline stages:
-o	Checkout source code
-o	Maven build & test
-o	Generate test reports
-o	Docker image build
-o	Push image to Docker Hub
-o	Deploy/update application in Kubernetes
+ o	Checkout source code
+ o	Maven build & test
+ o	Generate test reports
+ o	Docker image build
+ o	Push image to Docker Hub
+ o	Deploy/update application in Kubernetes
 4.	Kubernetes performs rolling update of pods
 
 ☸️Kubernetes Setup
 •	Cluster created using kubeadm
 •	Nodes:
-o	1 Master Node
-o	3 Worker Nodes
+ o	1 Master Node
+ o	3 Worker Nodes
 •	Application deployed using:
-o	Deployment
-o	NodePort Service
-o	ConfigMap & Secret
+ o	Deployment
+ o	NodePort Service
+ o	ConfigMap & Secret
 •	Health management:
-o	Readiness & Liveness probes
+ o	Readiness & Liveness probes
 •	Scaling:
-o	Horizontal Pod Autoscaler (HPA) using Metrics Server
+ o	Horizontal Pod Autoscaler (HPA) using Metrics Server
 
 🔐 Configuration Management
 •	ConfigMaps used for:
-o	Spring application configuration
+ o	Spring application configuration
 •	Secrets used for:
-o	Database credentials
+ o	Database credentials
 •	Environment variables injected into pods
