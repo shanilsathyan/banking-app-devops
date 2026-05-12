@@ -1,4 +1,4 @@
-📘 Banking Application – End-to-End DevOps Project
+Banking Application – End-to-End DevOps Project
 📌 Project Overview
 
 This project demonstrates a complete DevOps lifecycle for a Spring Boot–based Banking application, implemented using Azure VMs, Jenkins CI/CD, Docker, Kubernetes (kubeadm), and Prometheus & Grafana monitoring.
